@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>관극 로그</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f0e4;
+  --bg2:#fffdf8;
+  --paper:#3a2418;
+  --ink:#4a3626;
+  --muted:#8c7a63;
+  --gold:#a9792f;
+  --burgundy:#7a2230;
+  --line:rgba(58,36,24,0.14);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  background:
+    radial-gradient(ellipse 60% 40% at 50% 0%, rgba(169,121,47,0.12), transparent 60%),
+    var(--bg);
+  color:var(--ink);
+  font-family:'Noto Sans KR',sans-serif;
+  min-height:100vh;
+  padding-bottom:60px;
+}
+
+/* ---------- header ---------- */
+.hero{position:relative;text-align:center;padding:56px 20px 34px;overflow:hidden;}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 45% 55% at 50% 0%, rgba(255,255,255,0.08), transparent 65%);
+  pointer-events:none;
+}
+.eyebrow{position:relative;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:5px;
+  color:var(--gold);font-weight:600;margin-bottom:16px;}
+.hero h1{position:relative;font-family:'Nanum Myeongjo',serif;font-weight:800;font-size:clamp(30px,7vw,52px);
+  line-height:1.15;color:var(--paper);letter-spacing:-0.5px;}
+.hero p{position:relative;margin-top:14px;font-size:13px;color:var(--muted);line-height:1.7;
+  max-width:420px;margin-left:auto;margin-right:auto;}
+
+/* ---------- ticket grid ---------- */
+.grid{max-width:880px;margin:10px auto 0;padding:10px 18px 0;display:grid;
+  grid-template-columns:1fr;gap:16px;}
+@media(min-width:680px){.grid{grid-template-columns:1fr 1fr;gap:18px;}}
+
+.ticket{
+  position:relative;display:grid;grid-template-columns:1fr 74px;
+  background:var(--bg2);border:1px solid var(--line);border-radius:14px;
+  text-decoration:none;color:inherit;overflow:hidden;
+  box-shadow:0 6px 18px rgba(58,36,24,0.08);
+  transition:transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  border-left:4px solid var(--accent);
+}
+.ticket:hover{transform:translateY(-3px);box-shadow:0 12px 26px rgba(58,36,24,0.14);border-color:rgba(58,36,24,0.28);}
+.ticket:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
+
+.ticket-main{padding:20px 18px 18px;}
+.ticket-genre{display:inline-block;font-family:'Noto Sans KR',sans-serif;font-size:10px;font-weight:700;
+  letter-spacing:2px;color:var(--accent);background:color-mix(in srgb, var(--accent) 20%, transparent);
+  border:1px solid color-mix(in srgb, var(--accent) 55%, transparent);
+  padding:3px 8px;border-radius:20px;margin-bottom:10px;}
+.ticket-title{font-family:'Nanum Myeongjo',serif;font-weight:800;font-size:21px;color:var(--paper);
+  line-height:1.3;letter-spacing:-0.3px;}
+.ticket-en{display:block;margin-top:4px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;
+  letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;}
+
+.ticket-stub{
+  position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:6px;background:color-mix(in srgb, var(--accent) 16%, var(--bg2));
+  border-left:1.5px dashed rgba(58,36,24,0.22);
+}
+.ticket-stub::before,.ticket-stub::after{
+  content:'';position:absolute;left:-8px;width:16px;height:16px;border-radius:50%;background:var(--bg);
+}
+.ticket-stub::before{top:-8px;}
+.ticket-stub::after{bottom:-8px;}
+.stub-arrow{font-size:18px;color:var(--paper);transition:transform 0.18s ease;}
+.ticket:hover .stub-arrow{transform:translateX(3px);}
+.stub-label{font-family:'Noto Sans KR',sans-serif;font-size:9.5px;font-weight:700;letter-spacing:1px;color:var(--muted);
+  writing-mode:vertical-rl;text-orientation:mixed;}
+
+/* accent colors per show */
+.t-saeui{--accent:#5b84b0;}
+.t-oneiro{--accent:#9a6fd6;}
+.t-billy{--accent:#3f9a8f;}
+.t-gone{--accent:#d68a3a;}
+.t-oi{--accent:#c9414f;}
+.t-star{--accent:#7f96c9;}
+
+/* ---------- guide section ---------- */
+.guide{max-width:720px;margin:56px auto 0;padding:0 18px;}
+.guide-head{text-align:center;margin-bottom:22px;}
+.guide-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:3px;color:var(--gold);
+  margin-bottom:8px;}
+.guide-head h2{font-family:'Nanum Myeongjo',serif;font-size:22px;color:var(--paper);font-weight:700;}
+.guide-head p{margin-top:8px;font-size:12px;color:var(--muted);line-height:1.7;}
+
+.guide-card{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:20px 20px 6px;
+  margin-bottom:14px;}
+.guide-card h3{font-family:'Nanum Myeongjo',serif;font-size:15.5px;color:var(--gold);margin-bottom:10px;
+  display:flex;align-items:center;gap:8px;}
+.guide-num{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--bg2);background:var(--gold);
+  width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
+  font-weight:700;flex-shrink:0;}
+.guide-card ol,.guide-card ul{padding-left:18px;margin-bottom:14px;}
+.guide-card li{font-size:12.5px;color:var(--ink);line-height:1.85;}
+.guide-card li b{color:var(--paper);}
+.guide-note{font-size:11.5px;color:var(--muted);background:rgba(201,162,74,0.08);
+  border:1px dashed rgba(201,162,74,0.35);border-radius:8px;padding:8px 10px;margin-bottom:14px;line-height:1.7;}
+
+.footer{text-align:center;font-size:10.5px;color:var(--muted);margin-top:40px;line-height:1.9;padding:0 20px;}
+.footer b{color:var(--gold);}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="eyebrow">MY STAGE LOG</div>
+  <h1>관극 로그</h1>
+  <p>아래 티켓을 누르면 각 공연의 정산 사이트로 바로 이동해요.<br>사이트 구성은 6곳 모두 동일합니다 — 공통 사용법은 맨 아래에 있어요.</p>
+</div>
+
+<div class="grid">
+  <a class="ticket t-saeui" href="https://chichiandpopo.github.io/2026-The-Hymn-of-Death/" target="_blank" rel="noopener">
+    <div class="ticket-main">
+      <span class="ticket-genre">뮤지컬</span>
+      <div class="ticket-title">사의찬미</div>
+      <span class="ticket-en">Gloomy Day</span>
+    </div>
+    <div class="ticket-stub"><span class="stub-arrow">→</span><span class="stub-label">입장</span></div>
+  </a>
+
+  <a class="ticket t-oneiro" href="https://chichiandpopo.github.io/oneiromancy/" target="_blank" rel="noopener">
+    <div class="ticket-main">
+      <span class="ticket-genre">뮤지컬</span>
+      <div class="ticket-title">해몽가</div>
+    </div>
+    <div class="ticket-stub"><span class="stub-arrow">→</span><span class="stub-label">입장</span></div>
+  </a>
+
+  <a class="ticket t-billy" href="https://chichiandpopo.github.io/BILLY_ELLIOT/" target="_blank" rel="noopener">
+    <div class="ticket-main">
+      <span class="ticket-genre">뮤지컬</span>
+      <div class="ticket-title">빌리 엘리어트</div>
+      <span class="ticket-en">Billy Elliot</span>
+    </div>
+    <div class="ticket-stub"><span class="stub-arrow">→</span><span class="stub-label">입장</span></div>
+  </a>
+
+  <a class="ticket t-gone" href="https://chichiandpopo.github.io/gone_tomorrow/" target="_blank" rel="noopener">
+    <div class="ticket-main">
+      <span class="ticket-genre">뮤지컬</span>
+      <div class="ticket-title">곤투모로우</div>
+      <span class="ticket-en">Gone Tomorrow</span>
+    </div>
+    <div class="ticket-stub"><span class="stub-arrow">→</span><span class="stub-label">입장</span></div>
+  </a>
+
+  <a class="ticket t-oi" href="https://chichiandpopo.github.io/OI/" target="_blank" rel="noopener">
+    <div class="ticket-main">
+      <span class="ticket-genre">뮤지컬</span>
+      <div class="ticket-title">오셀로와 이아고</div>
+      <span class="ticket-en">Othello &amp; Iago</span>
+    </div>
+    <div class="ticket-stub"><span class="stub-arrow">→</span><span class="stub-label">입장</span></div>
+  </a>
+
+  <a class="ticket t-star" href="https://chichiandpopo.github.io/STARCROSSED/" target="_blank" rel="noopener">
+    <div class="ticket-main">
+      <span class="ticket-genre">연극</span>
+      <div class="ticket-title">스타크로스드</div>
+      <span class="ticket-en">Starcrossed</span>
+    </div>
+    <div class="ticket-stub"><span class="stub-arrow">→</span><span class="stub-label">입장</span></div>
+  </a>
+</div>
+
+<div class="guide">
+  <div class="guide-head">
+    <div class="guide-eyebrow">HOW TO USE</div>
+    <h2>공통 사용법</h2>
+  </div>
+
+  <div class="guide-card">
+    <h3><span class="guide-num">1</span>바로가기(홈 화면 아이콘) 만들기</h3>
+    <ol>
+      <li><b>아이폰(Safari)</b> — 티켓을 눌러 사이트 접속 → 하단 공유 버튼(⬆) → "홈 화면에 추가" → 이름 확인 후 추가</li>
+      <li><b>안드로이드(Chrome)</b> — 사이트 접속 → 오른쪽 위 점 3개(⋮) 메뉴 → "홈 화면에 추가" 또는 "앱 설치"</li>
+      <li><b>PC(Chrome/Edge)</b> — 주소창 오른쪽 설치 아이콘 클릭, 없으면 메뉴(⋮) → "앱 설치"</li>
+    </ol>
+    <div class="guide-note">⚠️ 아이폰은 꼭 <b style="color:var(--gold)">Safari</b>로 접속해서 추가해야 "홈 화면에 추가" 메뉴가 보여요. 6개 사이트를 다 쓰신다면 이 페이지 자체를 먼저 홈 화면에 추가해두고, 여기서 각 티켓으로 이동하는 것도 방법이에요.</div>
+  </div>
+
+  <div class="guide-card">
+    <h3><span class="guide-num">2</span>화면 구성</h3>
+    <ul>
+      <li><b>출연 일정 표</b> — 날짜·요일·시간·배역별 배우·좌석·복사(🎤) 버튼으로 전체 회차를 보여줘요</li>
+      <li><b>배우 필터</b> — 배역별 배우 이름을 눌러 원하는 조합만 골라볼 수 있어요 (여러 명 동시 선택 가능)</li>
+      <li><b>📌 필터 고정</b> — 필터를 선택한 뒤 "고정하기"를 누르면 다음 방문 때도 그 조합이 자동 유지돼요</li>
+      <li><b>좌석 입력</b> — 실제 관람한 회차의 좌석을 <code>A-13</code> 형식으로 입력해두면, 그게 "내가 본 회차" 기록의 기준이 돼요</li>
+      <li><b>🎤 캐스팅 복사</b> — 회차별 마이크 아이콘으로 날짜·배우 정보를 텍스트로 복사해 공유할 수 있어요</li>
+      <li><b>정산(집계)</b> — 배우별로 "내가 좌석을 입력한 횟수 / 필터된 전체 회차 수"를 카드로 보여줘요</li>
+      <li><b>좌석 배치도</b> — 입력한 좌석이 극장 지도 위에 표시되고, 같은 자리에 여러 번 앉았다면 색이 진해져요</li>
+      <li><b>💾 데이터 저장/불러오기</b> — 기록을 JSON 파일로 내려받아 백업하고, 다른 기기에서 불러와 복원할 수 있어요</li>
+    </ul>
+  </div>
+
+  <div class="guide-card">
+    <h3><span class="guide-num">3</span>알아두면 좋은 점</h3>
+    <ul>
+      <li>로그인이 필요 없고, 기록은 <b>내 브라우저(localStorage)</b>에만 저장돼요 — 서버로 전송되지 않아요</li>
+      <li>6개 사이트는 <b>주소가 각각 달라서 기록도 사이트별로 따로 저장</b>돼요. 공연마다 "내 데이터 저장"으로 각자 백업해두세요</li>
+      <li>브라우저 캐시를 지우거나 기기를 바꾸면 기록이 사라질 수 있으니, 종종 백업 파일을 받아두는 걸 추천해요</li>
+      <li><b>비공식 스케줄 정리 사이트</b>입니다. 실제 캐스팅은 예매처·제작사 공지로 최종 확인해주세요</li>
+    </ul>
+  </div>
+</div>
+
+<div class="footer">
+  <b>관극 로그</b> · 팬메이드 비공식 관람 기록 허브<br>
+  각 사이트로 이동만 하며, 기록은 이동한 사이트에만 저장됩니다<br>
+  문의사항은 트위터 <b>@SlowestCat</b>으로 DM 주세요
+</div>
+
+</body>
+</html>
